@@ -9,6 +9,7 @@ const app = express();
 connectDB();
 
 //* Router Middleware
+app.use(express.json());
 app.use("/api/notes", notesRouter);
 
 app.listen(PORT, () => {
