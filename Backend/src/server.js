@@ -1,7 +1,9 @@
 import express from "express";
 import notesRouter from "./routes/notesRoutes.js";
+import { connectDB } from "./config/db.js";
 
 const app = express();
+connectDB();
 
 //* Router Middleware
 app.use("/api/notes", notesRouter);
