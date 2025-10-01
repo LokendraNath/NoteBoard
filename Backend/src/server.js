@@ -10,9 +10,13 @@ const PORT = process.env.PORT || 5001;
 const app = express();
 
 //* Router Middleware
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 app.use(express.json());
 app.use(rateLimiter);
-app.use(cors());
 
 app.use("/api/notes", notesRouter);
 
