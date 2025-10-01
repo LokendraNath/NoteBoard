@@ -2,14 +2,14 @@ import { PenBox, Trash2Icon } from "lucide-react";
 import { Link } from "react-router";
 import { formatDate } from "../lib/utils";
 
-// type NoteProp = {
-//   _id: number,
-//   title: string,
-//   content: string,
-//   createdAt: string,
-// };
+type NoteProp = {
+  _id: number;
+  title: string;
+  content: string;
+  createdAt: string;
+};
 
-const NoteCard = ({ note }) => {
+const NoteCard = ({ note }: { note: NoteProp }) => {
   return (
     <Link
       className="card  bg-neutral text-neutral-content hover:shadow-lg transition-all duration-200 border-t-4  border-solid border-[#4b2121] py-3 px-5 hover:scale-105"
