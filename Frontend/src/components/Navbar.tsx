@@ -10,14 +10,12 @@ const Navbar = () => {
             <NotebookPen className="size-8 mr-3" />
             NoteBoard
           </h1>
-          <div>
-            <Link
-              to="/create"
-              className="flex text-2xl items-center btn btn-dash"
-            >
-              <PlusIcon className="size-5 mr-2" /> <span>Create</span>
-            </Link>
-          </div>
+          <Link
+            to="/create"
+            className="flex text-2xl items-center btn btn-dash"
+          >
+            <PlusIcon className="size-5 mr-2" /> <span>Create</span>
+          </Link>
         </div>
       </div>
     </header>
