@@ -58,7 +58,7 @@ const CreatePage = () => {
                 </div>
                 <div className="form-control mb-4">
                   <label className="label">
-                    <span className="label-text text-lg mb-2">Content</span>
+                    <span className="label-text text-lg mb-2">Description</span>
                   </label>
                   <textarea
                     className="textarea textarea-bordered h-30 w-full"

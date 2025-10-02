@@ -95,7 +95,7 @@ const NoteDetailsPage = () => {
               </div>
               <div className="form-control mb-4">
                 <label className="label mb-3">
-                  <span className="label-text text-lg">Content</span>
+                  <span className="label-text text-lg">Description</span>
                 </label>
                 <textarea
                   placeholder="Write your note here..."
