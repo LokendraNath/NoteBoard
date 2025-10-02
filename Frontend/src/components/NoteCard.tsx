@@ -19,7 +19,7 @@ const NoteCard = ({ note }: { note: NoteProp }) => {
         <h1 className="text-xl text-white font-bold tracking-wide">
           {note.title}
         </h1>
-        <p className="text-lg mt-1 mb-5 text-stone-400">{note.content}</p>
+        <p className="text-sm mt-1 mb-5 text-stone-400">{note.content}</p>
         <div className="flex items-center justify-between">
           <span className="text-xm">
             {formatDate(new Date(note.createdAt))}
