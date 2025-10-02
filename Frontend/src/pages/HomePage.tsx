@@ -38,10 +38,11 @@ const HomePage = () => {
         {isLoading && (
           <div className="text-center text-2xl py-10">Loading ...</div>
         )}
+
         {notes.length > 0 && !isRateLimited && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {notes.map((note) => (
-              <NoteCard key={note._id} note={note} />
+              <NoteCard key={note._id} note={note} setNotes={setNotes} />
             ))}
           </div>
         )}

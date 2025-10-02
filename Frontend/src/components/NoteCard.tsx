@@ -1,15 +1,39 @@
 import { PenBox, Trash2Icon } from "lucide-react";
 import { Link } from "react-router";
 import { formatDate } from "../lib/utils";
+import type React from "react";
+import api from "../lib/axios";
+import toast from "react-hot-toast";
+import type { Dispatch, SetStateAction } from "react";
 
-type NoteProp = {
-  _id: number;
+interface Note {
+  _id: string;
   title: string;
   content: string;
   createdAt: string;
-};
+}
+interface ChildProps {
+  note: Note;
+  setNotes: Dispatch<SetStateAction<Note[]>>;
+}
 
-const NoteCard = ({ note }: { note: NoteProp }) => {
+const NoteCard: React.FC<ChildProps> = ({ note, setNotes }: ChildProps) => {
+  const handleDeleteNote = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+    noteId: string
+  ) => {
+    e.preventDefault();
+    if (!window.confirm("Are You Sure You Want To Delete This Note?")) return;
+    try {
+      await api.delete(`/notes/${noteId}`);
+      toast.success("Note Deleted Successfully");
+      setNotes((prev) => prev.filter((note) => note._id !== noteId));
+    } catch (error) {
+      console.log("Error In handleDelete", error);
+      toast.error("Failed To Delete Note");
+    }
+  };
+
   return (
     <Link
       className="card  bg-neutral text-neutral-content hover:shadow-lg transition-all duration-200 border-t-4  border-solid border-[#4b2121] py-3 px-5 hover:scale-105"
@@ -25,10 +49,13 @@ const NoteCard = ({ note }: { note: NoteProp }) => {
             {formatDate(new Date(note.createdAt))}
           </span>
           <div className="flex space-x-3">
-            <button className="cursor-pointer hover:scale-110 transition-all duration-200">
+            <button className="btn cursor-pointer hover:scale-110 transition-all duration-200">
               <PenBox className="size-4 text-green-700" />
             </button>
-            <button className="cursor-pointer hover:scale-110 transition-all duration-200">
+            <button
+              className="btn cursor-pointer hover:scale-110 transition-all duration-200"
+              onClick={(e) => handleDeleteNote(e, note._id)}
+            >
               <Trash2Icon className="size-4 text-red-700" />
             </button>
           </div>
