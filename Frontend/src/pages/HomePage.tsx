@@ -5,10 +5,18 @@ import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard";
 import api from "../lib/axios";
 import NotesNotFound from "../components/NotesNotFound";
+import type { AxiosError } from "axios";
+
+interface Note {
+  _id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+}
 
 const HomePage = () => {
   const [isRateLimited, setIsRateLimited] = useState(false);
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState<Note[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -17,7 +25,8 @@ const HomePage = () => {
         const res = await api.get("/notes");
         setNotes(res.data);
         setIsRateLimited(false);
-      } catch (error) {
+      } catch (err) {
+        const error = err as AxiosError;
         console.log("Error Come to fetch", error);
         if (error.response?.status === 429) {
           setIsRateLimited(true);

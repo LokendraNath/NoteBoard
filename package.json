@@ -1,0 +1,21 @@
+{
+  "name": "noteboard",
+  "version": "1.0.0",
+  "description": "> NoteBoard is a simple MERN stack note-taking application. > You can create, view, edit, and delete notes. The UI is minimal — the goal is to showcase MERN logic.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix Backend && npm install --prefix Frontend && npm run build --prefix Frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LokendraNath/NoteBoard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/LokendraNath/NoteBoard/issues"
+  },
+  "homepage": "https://github.com/LokendraNath/NoteBoard#readme"
+}

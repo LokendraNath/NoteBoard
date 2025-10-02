@@ -5,8 +5,8 @@ import toast from "react-hot-toast";
 import { ArrowLeftIcon, Loader2, Trash2Icon } from "lucide-react";
 
 const NoteDetailsPage = () => {
-  const [note, setNote] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [note, setNote] = useState({ title: "", content: "" });
+  const [loading] = useState(false);
   const [saving, setSaving] = useState(false);
 
   const navigate = useNavigate();
