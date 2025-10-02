@@ -1,7 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import path from "path";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 
 import notesRouter from "./routes/notesRoutes.js";
 import { connectDB } from "./config/db.js";
@@ -10,31 +11,46 @@ import rateLimiter from "./middleware/rateLimiter.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001;
-const __dirname = path.resolve();
+
+// Proper __dirname setup for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 //* Router Middleware
-if (process.env.NODE.ENV !== "production") {
+if (process.env.NODE_ENV !== "production") {
   app.use(
     cors({
       origin: "http://localhost:5173",
     })
   );
 }
+
 app.use(express.json());
 app.use(rateLimiter);
 
+// API Routes
 app.use("/api/notes", notesRouter);
 
-if (process.env.NODE.ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../Frontent/dist")));
+// Serve frontend in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../../Frontend/dist")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../Frontend", "dist", "index.html"));
+  app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(__dirname, "../../Frontend/dist/index.html"));
   });
 }
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`App is Running on PORT ${PORT}`);
-  });
-});
+// Connect DB and start server
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`✅ App is Running on PORT ${PORT}`);
+    });
+  } catch (err) {
+    console.error("❌ Failed to connect DB, server not started:", err);
+    process.exit(1);
+  }
+};
+
+startServer();
